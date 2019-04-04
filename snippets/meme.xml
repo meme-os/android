@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+    <!--To Remove-->
+    <remove-project name="LineageOS/android" />
+    <remove-project name="LineageOS/android_packages_apps_AudioFX" />
+    <remove-project name="LineageOS/android_packages_apps_Eleven" />
+    <remove-project name="LineageOS/android_packages_apps_FMRadio" />
+    <remove-project name="LineageOS/android_packages_apps_Jelly" />
+    <remove-project name="LineageOS/android_packages_apps_Recorder" />
+    <remove-project name="LineageOS/android_packages_apps_SetupWizard" />
+    <remove-project name="LineageOS/android_packages_apps_Snap" />
+    <remove-project name="LineageOS/android_packages_apps_Trebuchet" />
+
+    <!-- MemeOS Customization -->
+    <project path="android" name="meme-os/android"/>
+    <project path="packages/apps/AudioFX" name="meme-os/android_packages_apps_AudioFX" />
+    <project path="packages/apps/Eleven" name="meme-os/android_packages_apps_Eleven" />
+    <project path="packages/apps/FMRadio" name="meme-os/android_packages_apps_FMRadio" />
+    <project path="packages/apps/Jelly" name="meme-os/android_packages_apps_Jelly" />
+    <project path="packages/apps/Recorder" name="meme-os/android_packages_apps_Recorder" />
+    <project path="packages/apps/SetupWizard" name="meme-os/android_packages_apps_SetupWizard" />
+    <project path="packages/apps/Snap" name="meme-os/android_packages_apps_Snap" />
+    <project path="packages/apps/Trebuchet" name="meme-os/android_packages_apps_Trebuchet" />
+</manifest>
