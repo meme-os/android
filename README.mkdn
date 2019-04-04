@@ -1,37 +1,98 @@
-LineageOS
-===========
+MemeOS
+======
 
-Getting started
----------------
+## Setting up host machine
 
-To get started with Android/LineageOS, you'll need to get
-familiar with [Repo](https://source.android.com/source/using-repo.html) and [Version Control with Git](https://source.android.com/source/version-control.html).
+- A 64-bit Linux distribution (ubuntu recommended)
 
-To initialize your local repository using the LineageOS trees, use a command like this:
+- Packages Required
+  - For Ubuntu versions older than 16.04 (xenial), substitute:
+   ```bash
+   libwxgtk3.0-dev → libwxgtk2.8-dev
+   ```
+```bash
+sudo apt-get update && sudo apt-get install bc bison build-essential curl flex g++-multilib
+gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev
+libesd0-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev libxml2
+libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev
 ```
-repo init -u git://github.com/LineageOS/android.git -b lineage-16.0
+
+## Getting the source
+
+[Repo](http://source.android.com/source/developing.html) is a tool provided by Google that
+simplifies using [Git](http://git-scm.com/book) in the context of the Android source.
+
+### Installing Repo
+
+```bash
+# Make a directory where Repo will be stored and add it to the path
+$ mkdir -p ~/.bin
+$ PATH=~/.bin:$PATH
+
+# Download Repo itself
+$ curl https://storage.googleapis.com/git-repo-downloads/repo > ~/.bin/repo
+
+# Make Repo executable
+$ chmod a+x ~/.bin/repo
 ```
-Then to sync up:
+
+### Initializing Repo
+
+```bash
+# Create a directory where the source will be stored.
+# Note: You can name the folder to whatever you want, just replace *MemeOS*
+# with the name you intended  to use
+$ mkdir -p ~/MemeOS
+$ cd ~/MemeOS
+
+# Install the MemeOS Repo in the created directory
+$ repo init -u git://github.com/meme-os/android.git -b lineage-16.0
 ```
-repo sync
+
+### Download the source code
+
+The [repo sync](https://source.android.com/source/downloading) command is used to update
+the latest source code from MemeOS and Google. Remember it, as you may want to do it 
+every few days to keep your code base fresh and up-to-date.
+
+```bash
+# This may take a while, depending on your internet speed.
+#
+# The -j# option specifies the number of concurrent download threads to run.
+# 4 threads is a good number for most internet connections.
+# You may need to adjust this value if you have a particularly slow connection.
+$ repo sync --force-sync -j4
 ```
-Please see the [LineageOS Wiki](https://wiki.lineageos.org/) for building instructions, by device.
+## Building
 
+### Device-specific code ###
 
-Submitting patches
-------------------
-Patches are always welcome! Please submit your patches via LineageOS Gerrit!
+To build MemeOS you’ll need an existing device tree, kernel and proprietary blobs. 
+If your device already receive official LineageOS builds you can grab the device tree 
+and kernel here [LineageOS Github](https://github.com/LineageOS) and the proprietary 
+blobs here [TheMuppets Github](https://github.com/themuppets).
 
-Simply follow our guide on [how to submit patches](https://wiki.lineageos.org/submitting-patch-howto.html).
+### Speed up the build
 
-To view the status of your and others' patches, visit [LineageOS Gerrit Code Review](https://review.lineageos.org/).
+Make use of [ccache](https://ccache.samba.org/) if you want to speed up subsequent
+builds by running:
 
+```bash
+$ echo "export USE_CCACHE=1" >> ~/.bashrc
+$ ~/MemeOS/prebuilts/misc/linux-x86/ccache/ccache -M 50G
+```
 
-Buildbot
---------
+* Where 50G corresponds to 50GB of cache. This needs to be run once. Anywhere from
+25GB-100GB will result in very noticeably increased build speeds (for instance, a typical 
+1hr build time can be reduced to 20min). If you’re only building for one device,
+25GB-50GB is fine. If you plan to build for several devices that do not share the 
+same kernel source, aim for 75GB-100GB. This space will be permanently occupied 
+on your drive, so take this into consideration.See more information about ccache 
+on Google’s [Android build environment initialization page](https://source.android.com/source/initializing.html#setting-up-ccache).
 
-All supported devices are built weekly and periodically as changes are committed to ensure the source trees remain buildable.
+### Last step
 
-You can view the current build statuses at [LineageOS Jenkins](https://jenkins.lineageos.org/).
-
-Builds produced weekly by the buildbot can be downloaded from [LineageOS downloads](https://download.lineageos.org/).
+```bash
+$ cd ~/MemeOS
+$ . build/envsetup.sh && brunch lineage_*my-device*-userdebug
+```
