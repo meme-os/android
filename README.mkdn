@@ -1,5 +1,6 @@
-MemeOS
-======
+# MemeOS
+
+![MemeOS](https://res.cloudinary.com/chankruze/image/upload/v1554431037/github/meme-os-logo-2.svg)
 
 ## Setting up host machine
 
