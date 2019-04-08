@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
+    <remote  name="meme-os"
+	     fetch="https://github.com/meme-os"
+	     revision="lineage-16.0"
+	     sync-j="4" />
+
     <!--To Remove-->
     <remove-project name="LineageOS/android" />
     <remove-project name="LineageOS/android_packages_apps_AudioFX" />
@@ -21,4 +26,9 @@
     <project path="packages/apps/SetupWizard" name="meme-os/android_packages_apps_SetupWizard" />
     <project path="packages/apps/Snap" name="meme-os/android_packages_apps_Snap" />
     <project path="packages/apps/Trebuchet" name="meme-os/android_packages_apps_Trebuchet" />
+    
+    <!-- MemeOS Official Devices -->
+    <project path="device/motorola/potter" name="potter_device" remote="meme-os" />
+    <project path="vendor/motorola/potter" name="potter_vendor" remote="meme-os" />
+    <project path="kernel/motorola/potter" name="potter_kernel" remote="meme-os" />
 </manifest>
